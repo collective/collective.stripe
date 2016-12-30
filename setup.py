@@ -6,7 +6,7 @@ version = '0.3.3.dev0'
 setup(name='collective.stripe',
       version=version,
       description="Stripe Credit Card Processing Integration",
-      long_description=open("README.md"),
+      long_description=open("README.md").read(),
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
