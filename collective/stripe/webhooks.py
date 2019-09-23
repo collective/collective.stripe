@@ -1,52 +1,49 @@
-import json
-from five import grok
+from collective.stripe.interfaces import IAccountApplicationDeauthorizedEvent
+from collective.stripe.interfaces import IAccountUpdatedEvent
+from collective.stripe.interfaces import IBalanceAvailableEvent
+from collective.stripe.interfaces import IChargeCapturedEvent
+from collective.stripe.interfaces import IChargeDisputeClosedEvent
+from collective.stripe.interfaces import IChargeDisputeCreatedEvent
+from collective.stripe.interfaces import IChargeDisputeUpdatedEvent
+from collective.stripe.interfaces import IChargeFailedEvent
+from collective.stripe.interfaces import IChargeRefundedEvent
+from collective.stripe.interfaces import IChargeSucceededEvent
+from collective.stripe.interfaces import ICouponCreatedEvent
+from collective.stripe.interfaces import ICouponDeletedEvent
+from collective.stripe.interfaces import ICustomerCardCreatedEvent
+from collective.stripe.interfaces import ICustomerCardDeletedEvent
+from collective.stripe.interfaces import ICustomerCardUpdatedEvent
+from collective.stripe.interfaces import ICustomerCreatedEvent
+from collective.stripe.interfaces import ICustomerDeletedEvent
+from collective.stripe.interfaces import ICustomerDiscountCreatedEvent
+from collective.stripe.interfaces import ICustomerDiscountDeletedEvent
+from collective.stripe.interfaces import ICustomerDiscountUpdatedEvent
+from collective.stripe.interfaces import ICustomerSubscriptionCreatedEvent
+from collective.stripe.interfaces import ICustomerSubscriptionDeletedEvent
+from collective.stripe.interfaces import ICustomerSubscriptionTrialWillEndEvent
+from collective.stripe.interfaces import ICustomerSubscriptionUpdatedEvent
+from collective.stripe.interfaces import ICustomerUpdatedEvent
+from collective.stripe.interfaces import IInvoiceCreatedEvent
+from collective.stripe.interfaces import IInvoiceItemCreatedEvent
+from collective.stripe.interfaces import IInvoiceItemDeletedEvent
+from collective.stripe.interfaces import IInvoiceItemUpdatedEvent
+from collective.stripe.interfaces import IInvoicePaymentFailedEvent
+from collective.stripe.interfaces import IInvoicePaymentSucceededEvent
+from collective.stripe.interfaces import IInvoiceUpdatedEvent
+from collective.stripe.interfaces import IPingEvent
+from collective.stripe.interfaces import IPlanCreatedEvent
+from collective.stripe.interfaces import IPlanDeletedEvent
+from collective.stripe.interfaces import IPlanUpdatedEvent
+from collective.stripe.interfaces import ITransferCreatedEvent
+from collective.stripe.interfaces import ITransferFailedEvent
+from collective.stripe.interfaces import ITransferPaidEvent
+from collective.stripe.interfaces import ITransferUpdatedEvent
+from collective.stripe.utils import IStripeUtility
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from Products.Five import BrowserView
 from zope.component import getUtility
 from zope.event import notify
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from collective.stripe.utils import IStripeUtility
-
-from collective.stripe.interfaces import \
-    IAccountUpdatedEvent, \
-    IAccountApplicationDeauthorizedEvent, \
-    IBalanceAvailableEvent, \
-    IChargeSucceededEvent, \
-    IChargeFailedEvent, \
-    IChargeRefundedEvent, \
-    IChargeCapturedEvent, \
-    IChargeDisputeCreatedEvent, \
-    IChargeDisputeUpdatedEvent, \
-    IChargeDisputeClosedEvent, \
-    ICustomerCreatedEvent, \
-    ICustomerUpdatedEvent, \
-    ICustomerDeletedEvent, \
-    ICustomerCardCreatedEvent, \
-    ICustomerCardUpdatedEvent, \
-    ICustomerCardDeletedEvent, \
-    ICustomerSubscriptionCreatedEvent, \
-    ICustomerSubscriptionCreatedEvent, \
-    ICustomerSubscriptionUpdatedEvent, \
-    ICustomerSubscriptionDeletedEvent, \
-    ICustomerSubscriptionTrialWillEndEvent, \
-    ICustomerDiscountCreatedEvent, \
-    ICustomerDiscountUpdatedEvent, \
-    ICustomerDiscountDeletedEvent, \
-    IInvoiceCreatedEvent, \
-    IInvoiceUpdatedEvent, \
-    IInvoicePaymentSucceededEvent, \
-    IInvoicePaymentFailedEvent, \
-    IInvoiceItemCreatedEvent, \
-    IInvoiceItemUpdatedEvent, \
-    IInvoiceItemDeletedEvent, \
-    IPlanCreatedEvent, \
-    IPlanUpdatedEvent, \
-    IPlanDeletedEvent, \
-    ICouponCreatedEvent, \
-    ICouponDeletedEvent, \
-    ITransferCreatedEvent, \
-    ITransferUpdatedEvent, \
-    ITransferPaidEvent, \
-    ITransferFailedEvent, \
-    IPingEvent
+import json
 
 
 EVENTS_MAP = {
@@ -92,13 +89,11 @@ EVENTS_MAP = {
     'ping': IPingEvent,
 }
 
-class StripeWebhooksView(grok.View):
-    grok.name('stripe-webhooks')
-    grok.require('zope2.Public')
-    grok.context(IPloneSiteRoot)
+
+class StripeWebhooksView(BrowserView):
 
     # These events will not be verified by an API callback
-    unverified = ['ping',]
+    unverified = ['ping']
 
     def render(self):
         event_json = json.loads(self.request.get('BODY'))

@@ -1,27 +1,32 @@
-from five import grok
-
-from z3c.form import interfaces
-
-from zope import schema
-from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-from zope.schema.interfaces import IVocabularyFactory
-from zope.interface import Interface
-
 from plone.app.registry.browser import controlpanel
+from z3c.form import interfaces
+from zope import schema
+from zope.interface import implementer
+from zope.interface import Interface
+from zope.schema.interfaces import IVocabularyFactory
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
+
 
 MODE_VOCABULARY = SimpleVocabulary((
     SimpleTerm(value="live", title=u"Live (Production Mode)"),
     SimpleTerm(value="test", title=u"Test (Test Mode, no transactions really go through, be careful)"),
 ))
+
+
+@implementer(IVocabularyFactory)
 class StripeModesVocabulary(object):
-    grok.implements(IVocabularyFactory)
     def __call__(self, context):
         return MODE_VOCABULARY
-grok.global_utility(StripeModesVocabulary, name=u"collective.stripe.modes")
+
+
+StripeModesVocabularyFactory = StripeModesVocabulary()
+
 
 CURRENCY_VOCABULARY = SimpleVocabulary((
     SimpleTerm(value="usd", title=u"USD - $"),
 ))
+
 
 class IStripeSettings(Interface):
     """ Global settings for collective.stripe stored in the registry """
@@ -54,6 +59,7 @@ class IStripeSettings(Interface):
         default=u"usd",
     )
 
+
 class StripeSettingsEditForm(controlpanel.RegistryEditForm):
     schema = IStripeSettings
     label = u"Stripe Settings"
@@ -64,6 +70,7 @@ class StripeSettingsEditForm(controlpanel.RegistryEditForm):
 
     def updateWidgets(self):
         super(StripeSettingsEditForm, self).updateWidgets()
+
 
 class StripeSettingsControlPanel(controlpanel.ControlPanelFormWrapper):
     form = StripeSettingsEditForm

@@ -1,11 +1,10 @@
-from zope.interface import Interface
-from five import grok
-from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
-from plone.app.layout.viewlets.interfaces import IHtmlHead
-from collective.stripe.interfaces import IStripeModeChooser
 from collective.stripe.interfaces import IStripeEnabledView
+from collective.stripe.interfaces import IStripeModeChooser
 from collective.stripe.utils import get_settings
+from plone.app.layout.viewlets import ViewletBase
+from plone.app.layout.viewlets.interfaces import IHtmlHead
+from zope.interface import Interface
+
 
 STRIPE_JS_HTML = """
     <script type="text/javascript" src="https://js.stripe.com/v1/"></script>
@@ -18,12 +17,9 @@ STRIPE_JS_HTML = """
     </script>
 """
 
-class StripeJs(grok.Viewlet):
+
+class StripeJs(ViewletBase):
     """ Inject the Stripe.js script tag and configuration if relevant"""
-    grok.name('collective.stripe.stripejs')
-    grok.require('zope2.View')
-    grok.context(Interface)
-    grok.viewletmanager(IHtmlHead)
 
     def render(self):
         # Only run on views marked with IStripeEnabledView

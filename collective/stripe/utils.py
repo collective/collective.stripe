@@ -1,15 +1,18 @@
-import stripe
-from five import grok
-from zope.interface import Interface
-from zope.site.hooks import getSite
-from zope.component import getUtility
-from plone.registry.interfaces import IRegistry
 from collective.stripe.controlpanel import IStripeSettings
 from collective.stripe.interfaces import IStripeModeChooser
+from plone.registry.interfaces import IRegistry
+from zope.component import getUtility
+from zope.interface import implementer
+from zope.interface import Interface
+from zope.site.hooks import getSite
+
+import stripe
+
 
 def get_settings():
     registry = getUtility(IRegistry)
     return registry.forInterface(IStripeSettings, False)
+
 
 class IStripeUtility(Interface):
     """ A global utility providing methods to access the Stripe API """
@@ -30,8 +33,9 @@ class IStripeUtility(Interface):
         """ subscribe and existing customer to a plan.  if subscription
             already exists for the plan, the subscription is updated """
 
+
+@implementer(IStripeUtility)
 class StripeUtility(object):
-    grok.implements(IStripeUtility)
 
     def get_stripe_api(self, context=None, mode=None):
         active_mode = 'live'
@@ -98,10 +102,11 @@ class StripeUtility(object):
 
         cu = stripe.Customer.retrieve(customer_id)
         res = cu.update_subscription(
-            plan=plan, 
+            plan=plan,
             quantity=quantity,
             **kwargs
         )
         return res
 
-grok.global_utility(StripeUtility, provides=IStripeUtility)
+
+StripeUtilityFactory = StripeUtility()

@@ -60,27 +60,27 @@
       <label>Street Address</label>
       <div class="fieldErrorBox"></div>
       <input type="text" class="input-stripe-address1" autocomplete="off" />
-    </div> 
+    </div>
     <div class="field field-stripe-city">
       <label>City</label>
       <div class="fieldErrorBox"></div>
       <input type="text" class="input-stripe-city" autocomplete="off" />
-    </div> 
+    </div>
     <div class="field field-stripe-state">
       <label>State/Province</label>
       <div class="fieldErrorBox"></div>
       <input type="text" class="input-stripe-state" autocomplete="off" />
-    </div> 
+    </div>
     <div class="field field-stripe-zip">
       <label>Zip/Postal Code</label>
       <div class="fieldErrorBox"></div>
       <input type="text" class="input-stripe-zip" autocomplete="off" />
-    </div> 
+    </div>
     <div class="field field-stripe-state">
       <label>Country</label>
       <div class="fieldErrorBox"></div>
       <input type="text" class="input-stripe-country" value="US" autocomplete="off" />
-    </div> 
+    </div>
   </div>
 
 </div>
@@ -110,7 +110,7 @@
                 stripe_form.submit(function (e) {
                     e.preventDefault();
                     stripe_form.find('.formControls .form-buttons-save').prop('disabled', true);
-                    
+
                     Stripe.createToken({
                         number: stripe_form.find('.input-stripe-card-number').val(),
                         cvc: stripe_form.find('.input-stripe-card-cvc').val(),

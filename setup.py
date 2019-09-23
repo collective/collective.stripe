@@ -25,7 +25,6 @@ setup(name='collective.stripe',
       install_requires=[
           'setuptools',
           'stripe',
-          'five.grok',
           # -*- Extra requirements: -*-
       ],
       extras_require = {

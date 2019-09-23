@@ -15,7 +15,7 @@ class StripeTokenWidget(text.TextWidget):
 
     klass = u'stripe-token-widget'
     value = None # don't default to a string
-    
+
     def extract(self, default=NOVALUE):
         value = super(StripeTokenWidget, self).extract(default)
         return value

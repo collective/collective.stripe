@@ -1,14 +1,12 @@
-from five import grok
+from collective.stripe.utils import IStripeUtility
 from zope.component import getUtility
-from zope import schema
+from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 
-from collective.stripe.utils import IStripeUtility
 
-
+@implementer(IVocabularyFactory)
 class StripePlansVocabulary(object):
-    grok.implements(IVocabularyFactory)
 
     def __call__(self, context):
         return self.get_plans(context)
@@ -23,4 +21,5 @@ class StripePlansVocabulary(object):
 
         return SimpleVocabulary(terms)
 
-grok.global_utility(StripePlansVocabulary, name=u"collective.stripe.plans")
+
+StripePlansVocabularyFactory = StripePlansVocabulary()
