@@ -39,7 +39,6 @@ from collective.stripe.interfaces import ITransferFailedEvent
 from collective.stripe.interfaces import ITransferPaidEvent
 from collective.stripe.interfaces import ITransferUpdatedEvent
 from collective.stripe.utils import IStripeUtility
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.Five import BrowserView
 from zope.component import getUtility
 from zope.event import notify

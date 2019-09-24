@@ -2,8 +2,6 @@ from collective.stripe.interfaces import IStripeEnabledView
 from collective.stripe.interfaces import IStripeModeChooser
 from collective.stripe.utils import get_settings
 from plone.app.layout.viewlets import ViewletBase
-from plone.app.layout.viewlets.interfaces import IHtmlHead
-from zope.interface import Interface
 
 
 STRIPE_JS_HTML = """
