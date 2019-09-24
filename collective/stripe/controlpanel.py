@@ -1,5 +1,5 @@
+# coding=utf-8
 from plone.app.registry.browser import controlpanel
-from z3c.form import interfaces
 from zope import schema
 from zope.interface import implementer
 from zope.interface import Interface
@@ -24,6 +24,7 @@ StripeModesVocabularyFactory = StripeModesVocabulary()
 
 
 CURRENCY_VOCABULARY = SimpleVocabulary((
+    SimpleTerm(value="eur", title=u"EUR - €"),
     SimpleTerm(value="usd", title=u"USD - $"),
 ))
 
