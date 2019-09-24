@@ -1,10 +1,13 @@
 Changelog
 =========
 
-0.3.3 (unreleased)
+1.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+Breaking changes:
+
+- Support Plone 5.1 [ale-rt]
+- Removed grok [ale-rt]
 
 
 0.3.2 (2016-12-29)
@@ -26,4 +29,3 @@ Changelog
 
 - Egg released to pypi
   [tkimnguyen]
-

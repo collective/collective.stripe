@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.3.3.dev0'
+version = '1.0.0.dev0'
 
 setup(name='collective.stripe',
       version=version,
