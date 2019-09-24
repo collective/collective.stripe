@@ -1,5 +1,5 @@
 import transaction
-import unittest2 as unittest
+import unittest
 from zope.interface import Interface, implements
 from zope.component import getSiteManager, getUtility
 from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
@@ -23,7 +23,7 @@ class UtilsFunctionalTest(unittest.TestCase):
         portal = self.layer['portal']
 
         transaction.commit()
-    
+
     # tearDown is run once after *each* of these tests.
     def tearDown(self):
         pass
@@ -53,7 +53,7 @@ class UtilsFunctionalTest(unittest.TestCase):
         portal.get_stripe_mode = lambda: 'test'
         mode = util.get_mode_for_context(portal)
         self.assertEqual(mode, 'test')
-        
+
         settings.mode = 'test'
         portal.get_stripe_mode = lambda: 'live'
         mode = util.get_mode_for_context(portal)

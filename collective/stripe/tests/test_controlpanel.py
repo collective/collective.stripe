@@ -1,5 +1,5 @@
 import transaction
-import unittest2 as unittest
+import unittest
 from zope.component import getSiteManager
 from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
@@ -20,7 +20,7 @@ class ControlPanelFunctionalTest(unittest.TestCase):
         portal = self.layer['portal']
 
         transaction.commit()
-    
+
     # tearDown is run once after *each* of these tests.
     def tearDown(self):
         pass
@@ -37,7 +37,7 @@ class ControlPanelFunctionalTest(unittest.TestCase):
         settings_link = browser.getLink('Stripe Payment Processing')
         settings_link.click()
         self.assertEqual('http://nohost/plone/@@stripe-settings', browser.url)
-        
+
         # Set the values in the control panel
         browser.getControl(name='form.widgets.mode:list').value = ["test",]
         browser.getControl(name='form.widgets.live_secret_key').value = "1234567890"
@@ -53,4 +53,3 @@ class ControlPanelFunctionalTest(unittest.TestCase):
         self.assertEqual(settings.live_publishable_key, "9876543210")
         self.assertEqual(settings.test_secret_key, "qwertyuiop")
         self.assertEqual(settings.test_publishable_key, "poiuytrewq")
-
