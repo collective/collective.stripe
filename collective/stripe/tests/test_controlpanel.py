@@ -1,11 +1,11 @@
+from collective.stripe.testing import FUNCTIONAL_TESTING
+from collective.stripe.utils import get_settings
+from plone.app.testing import SITE_OWNER_PASSWORD
+from plone.testing.z2 import Browser
+
 import transaction
 import unittest
-from zope.component import getSiteManager
-from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
-from plone.app.testing import SITE_OWNER_NAME, SITE_OWNER_PASSWORD
-from plone.testing.z2 import Browser
-from collective.stripe.utils import get_settings
-from collective.stripe.testing import FUNCTIONAL_TESTING
+
 
 class ControlPanelFunctionalTest(unittest.TestCase):
     # The layer's setup will run once before all of these tests run,
