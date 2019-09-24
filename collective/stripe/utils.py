@@ -4,7 +4,6 @@ from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import Interface
-from zope.site.hooks import getSite
 
 import stripe
 
